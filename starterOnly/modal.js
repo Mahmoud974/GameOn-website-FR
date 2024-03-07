@@ -37,6 +37,12 @@ function launchModal() {
 close.addEventListener("click", () => {
   bground.style.display = "none";
 });
+/**
+ * Button close the modal send form
+ */
+btnClose.addEventListener("click", () => {
+  sendForm.style.display = "none";
+});
 
 /**
  * Close the modal send form

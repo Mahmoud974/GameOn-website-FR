@@ -159,12 +159,10 @@ main {
 
 .bground {
   display: none;
-    /* display: flex; */
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
-
   height: 100%;
   width: 100%;
   overflow: auto;
@@ -172,8 +170,7 @@ main {
 }
 /* Confirmation d'envoie */
 .sendForm{
-  display: none;
- align-items: center;
+  display: none;  
   position: fixed;
   z-index: 1;
   left: 0;
@@ -182,6 +179,33 @@ main {
   width: 100%;
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
+}
+.checkedForm {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100%;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  align-items: center;
+  height: 100%;
+}
+
+.btn-close {
+  margin-top: auto; 
+  margin-bottom: 30px;
+   background: #fe142f;
+  display: block;
+
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 82px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
 }
 .sendForm .checkedForm{
   display: flex;
@@ -383,6 +407,8 @@ input[data-error]::after {
 .close:after {
   transform: rotate(-45deg);
 }
+
+
 .btn-submit,
 .btn-signup {
   background: #fe142f;
@@ -541,6 +567,8 @@ footer {
   margin: 0 20px;
 }
 @media screen and (max-width: 800px) {
+
+
   .topnav{
     display: flex;
     justify-content: space-between;
@@ -580,11 +608,13 @@ footer {
     padding-top: 0;
   }
 
-  .hero-text {
-    padding-top: 10px;
-   font-size: 12px;
-    margin-top: 0;
-  }
+ .hero-text {
+  padding-top: 10px;
+  font-size: 9px;
+  margin-top: 0;
+  width: 60%;
+  word-wrap: break-word; 
+}
   .hero-img img {
     border-radius: 10px;
     margin-top: 40px;
@@ -595,10 +625,11 @@ footer {
     padding: 12px 35px;
   }
   .copyrights {
-    margin-top: -90px;
-    text-align: center;
-    font-size: 12px;
-  }
+  margin-top: auto;
+  text-align: center;
+  font-size: 12px;
+}
+
 }
 
 @keyframes modalopen {
