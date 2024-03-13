@@ -1,5 +1,5 @@
 /**
- * Fonction pour basculer la classe responsive pour la navigation
+ * Active the burger menu
  */
 function editNav() {
   var x = document.getElementById("myTopnav");
@@ -51,7 +51,6 @@ closeConfirm.addEventListener("click", () => {
   sendForm.style.display = "none";
 });
 
-quantity.value = 0;
 /**
  *  Validate name and firstname
  * @param {*} input
@@ -60,6 +59,7 @@ quantity.value = 0;
  */
 const validateName = (input, errorMsg) => {
   const regex = /^[a-zA-ZÀ-ÿ\s']+$/;
+  //Delete the space in my input
   let fieldValue = input.value.trim();
   if (fieldValue === "") {
     errorMsg.textContent = "Ce champ est obligatoire.";
@@ -97,12 +97,42 @@ const validateInput = (input, errorMsg) => {
       errorMsg.style.color = "red";
       errorMsg.style.fontSize = "12px";
       return false;
+    } else if (input.id === "email") {
+      // Check the email format witth regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(fieldValue)) {
+        errorMsg.textContent = "Veuillez saisir une adresse e-mail valide.";
+        errorMsg.style.color = "red";
+        errorMsg.style.fontSize = "12px";
+        return false;
+      } else {
+        errorMsg.textContent = "";
+        return true;
+      }
     } else {
       errorMsg.textContent = "";
       return true;
     }
   } else {
     return validateName(input, errorMsg);
+  }
+};
+/**
+ * Check the quantity of game
+ * @returns
+ */
+const checkQuantity = () => {
+  const quantityInput = document.getElementById("quantity");
+  const errorMsg = document.getElementById("errorMsg");
+  //input value is empty
+  if (quantityInput.value === "") {
+    errorMsg.textContent = "Veuillez indiquer une quantité.";
+    errorMsg.style.color = "red";
+    errorMsg.style.fontSize = "12px";
+    return false;
+  } else {
+    errorMsg.textContent = "";
+    return true;
   }
 };
 
@@ -125,7 +155,7 @@ const validateCheckbox = (checkbox, errorMsg) => {
 };
 
 /**
- *  Display the cities select
+ *  Display the cities selects
  * @param {*} errorMsg
  * @returns
  */
@@ -143,7 +173,7 @@ const validateCity = (errorMsg) => {
 };
 
 /**
- * Send the form
+ * Send the form with the variable
  * @returns
  */
 const validate = () => {
@@ -153,6 +183,7 @@ const validate = () => {
   const isBirthdateValid = validateInput(birthdate, errorDate);
   const isCheckboxValid = validateCheckbox(checkbox1, errorCondition);
   const isLocationValid = validateCity(errorRadio);
+  const isCheckQuantity = checkQuantity();
 
   return (
     isFirstNameValid &&
@@ -160,12 +191,13 @@ const validate = () => {
     isEmailValid &&
     isBirthdateValid &&
     isCheckboxValid &&
-    isLocationValid
+    isLocationValid &&
+    isCheckQuantity
   );
 };
 
 /**
- * Send the form
+ * Send the form with the button submit
  */
 form.addEventListener("submit", (e) => {
   e.preventDefault();
