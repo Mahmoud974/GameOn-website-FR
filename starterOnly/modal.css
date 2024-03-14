@@ -245,9 +245,8 @@ text-align: center;
   padding: 15px 8%;
   margin: 15px auto;
 }
-@media screen and (max-height: 778px) {
+@media screen and (max-height: 800px) {
 .modal-body {
- 
   overflow-y: scroll;
  
 }}
