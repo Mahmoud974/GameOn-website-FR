@@ -124,9 +124,9 @@ const validateInput = (input, errorMsg) => {
 const checkQuantity = () => {
   const quantityInput = document.getElementById("quantity");
   const errorMsg = document.getElementById("errorMsg");
-  //input value is empty
-  if (quantityInput.value === "") {
-    errorMsg.textContent = "Veuillez indiquer une quantité.";
+  //input value is empty or negative
+  if (quantityInput.value === "" || quantityInput.value === "-0") {
+    errorMsg.textContent = "Veuillez indiquer une quantité positive.";
     errorMsg.style.color = "red";
     errorMsg.style.fontSize = "12px";
     return false;
