@@ -57,81 +57,83 @@ closeConfirm.addEventListener("click", () => {
  * @param {*} errorMsg
  * @returns
  */
-const validateName = (input, errorMsg) => {
+const validateName = (input) => {
   const regex = /^[a-zA-ZÀ-ÿ\s']+$/;
-  //Delete the space in my input
   let fieldValue = input.value.trim();
+  const formData = input.closest(".formData"); // Récupérer l'élément parent .formData
+
   if (fieldValue === "") {
-    errorMsg.textContent = "Ce champ est obligatoire.";
-    errorMsg.style.color = "red";
-    errorMsg.style.fontSize = "12px";
+    formData.setAttribute("data-error-visible", "true"); // Définir l'attribut data-error-visible sur "true"
     return false;
   } else if (fieldValue.length < 2) {
-    errorMsg.textContent =
-      "Le prénom ou le nom doit contenir au moins deux lettres.";
-    errorMsg.style.color = "red";
-    errorMsg.style.fontSize = "12px";
+    formData.setAttribute("data-error-visible", "true");
     return false;
   } else if (!regex.test(fieldValue)) {
-    errorMsg.textContent = "Veuillez entrer un prénom ou un nom valide.";
-    errorMsg.style.color = "red";
-    errorMsg.style.fontSize = "12px";
+    formData.setAttribute("data-error-visible", "true");
     return false;
   } else {
-    errorMsg.textContent = "";
+    formData.removeAttribute("data-error-visible"); // Supprimer l'attribut data-error-visible
     return true;
   }
 };
 
 /**
- * Check a field empty
+ * Check a field empty for email and birthdate
  * @param {*} input
  * @param {*} errorMsg
  * @returns
  */
-const validateInput = (input, errorMsg) => {
+const validateInput = (input) => {
+  const formData = input.closest(".formData");
   if (input.id === "email" || input.id === "birthdate") {
     let fieldValue = input.value.trim();
     if (fieldValue === "") {
-      errorMsg.textContent = "Ce champ est obligatoire.";
-      errorMsg.style.color = "red";
-      errorMsg.style.fontSize = "12px";
+      formData.setAttribute("data-error-visible", "true"); // Définir l'attribut data-error-visible sur "true"
       return false;
     } else if (input.id === "email") {
-      // Check the email format witth regex
+      // Check the email format with regex
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(fieldValue)) {
-        errorMsg.textContent = "Veuillez saisir une adresse e-mail valide.";
-        errorMsg.style.color = "red";
-        errorMsg.style.fontSize = "12px";
+        formData.setAttribute("data-error-visible", "true");
         return false;
       } else {
-        errorMsg.textContent = "";
+        formData.removeAttribute("data-error-visible");
         return true;
       }
-    } else {
-      errorMsg.textContent = "";
-      return true;
+    } else if (input.id === "birthdate") {
+      const birthDate = new Date(fieldValue);
+      const today = new Date();
+      const minDate = new Date(
+        today.getFullYear() - 14,
+        today.getMonth(),
+        today.getDate()
+      ); // 14 ans moins un jour
+      if (birthDate >= minDate) {
+        formData.setAttribute("data-error-visible", "true");
+        return false;
+      } else {
+        formData.removeAttribute("data-error-visible");
+        return true;
+      }
     }
   } else {
     return validateName(input, errorMsg);
   }
 };
+
 /**
  * Check the quantity of game
  * @returns
  */
-const checkQuantity = () => {
+const checkQuantity = (input) => {
   const quantityInput = document.getElementById("quantity");
-  const errorMsg = document.getElementById("errorMsg");
+  const formData = input.closest(".formData");
   //input value is empty or negative
   if (quantityInput.value === "" || quantityInput.value === "-0") {
-    errorMsg.textContent = "Veuillez indiquer une quantité positive.";
-    errorMsg.style.color = "red";
-    errorMsg.style.fontSize = "12px";
+    formData.setAttribute("data-error-visible", "true");
     return false;
   } else {
-    errorMsg.textContent = "";
+    formData.removeAttribute("data-error-visible");
     return true;
   }
 };
@@ -142,14 +144,13 @@ const checkQuantity = () => {
  * @param {*} errorMsg
  * @returns
  */
-const validateCheckbox = (checkbox, errorMsg) => {
+const validateCheckbox = (checkbox) => {
+  const formData = input.closest(".formData");
   if (!checkbox.checked) {
-    errorMsg.textContent = "Veuillez accepter les conditions d'utilisation.";
-    errorMsg.style.color = "red";
-    errorMsg.style.fontSize = "12px";
+    formData.setAttribute("data-error-visible", "true");
     return false;
   } else {
-    errorMsg.textContent = "";
+    formData.removeAttribute("data-error-visible");
     return true;
   }
 };
@@ -159,15 +160,20 @@ const validateCheckbox = (checkbox, errorMsg) => {
  * @param {*} errorMsg
  * @returns
  */
-const validateCity = (errorMsg) => {
+const validateCity = () => {
   const checkedRadio = document.querySelector('input[name="location"]:checked');
+  const formData = document.querySelectorAll(".formData"); // Sélectionnez tous les éléments .formData
+
   if (!checkedRadio) {
-    errorMsg.textContent = "Veuillez sélectionner une ville.";
-    errorMsg.style.color = "red";
-    errorMsg.style.fontSize = "12px";
+    formData.forEach((form) => {
+      form.setAttribute("data-error-visible", "true");
+    });
     return false;
   } else {
-    errorMsg.textContent = "";
+    // Si un bouton radio est sélectionné
+    formData.forEach((form) => {
+      form.removeAttribute("data-error-visible");
+    });
     return true;
   }
 };
@@ -177,13 +183,13 @@ const validateCity = (errorMsg) => {
  * @returns
  */
 const validate = () => {
-  const isFirstNameValid = validateInput(first, errorFirstName);
-  const isLastNameValid = validateInput(last, errorLastName);
-  const isEmailValid = validateInput(email, errorEmail);
-  const isBirthdateValid = validateInput(birthdate, errorDate);
-  const isCheckboxValid = validateCheckbox(checkbox1, errorCondition);
+  const isFirstNameValid = validateInput(first);
+  const isLastNameValid = validateInput(last);
+  const isEmailValid = validateInput(email);
+  const isBirthdateValid = validateInput(birthdate);
+  const isCheckboxValid = validateCheckbox(checkbox1);
   const isLocationValid = validateCity(errorRadio);
-  const isCheckQuantity = checkQuantity();
+  const isCheckQuantity = checkQuantity(quantity);
 
   return (
     isFirstNameValid &&
