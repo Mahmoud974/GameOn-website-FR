@@ -101,7 +101,7 @@ img {
 }
 
 /* Afficher l'icône du burger menu pour les écrans de taille réduite */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1110px) {
   .topnav a:not(.icon) {
     display: none;
   }

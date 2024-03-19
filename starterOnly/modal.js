@@ -117,7 +117,7 @@ const validateInput = (input) => {
       }
     }
   } else {
-    return validateName(input, errorMsg);
+    return validateName(input);
   }
 };
 
@@ -139,13 +139,13 @@ const checkQuantity = (input) => {
 };
 
 /**
- * Check the case
+ * Check the case the condition
  * @param {*} checkbox
  * @param {*} errorMsg
  * @returns
  */
 const validateCheckbox = (checkbox) => {
-  const formData = input.closest(".formData");
+  const formData = checkbox1.closest(".formData");
   if (!checkbox.checked) {
     formData.setAttribute("data-error-visible", "true");
     return false;
@@ -160,20 +160,23 @@ const validateCheckbox = (checkbox) => {
  * @param {*} errorMsg
  * @returns
  */
+
 const validateCity = () => {
   const checkedRadio = document.querySelector('input[name="location"]:checked');
-  const formData = document.querySelectorAll(".formData");
 
   if (!checkedRadio) {
-    formData.forEach((form) => {
-      form.setAttribute("data-error-visible", "true");
+    const radioButtons = document.querySelectorAll('input[name="location"]');
+    radioButtons.forEach((radioButton) => {
+      const formData = radioButton.closest(".formData");
+      if (formData) {
+        formData.setAttribute("data-error-visible", "true");
+      }
     });
     return false;
   } else {
-    // Si un bouton radio est sélectionné
-    formData.forEach((form) => {
-      form.removeAttribute("data-error-visible");
-    });
+    const formData = location1.closest(".formData");
+    formData.removeAttribute("data-error-visible");
+
     return true;
   }
 };
