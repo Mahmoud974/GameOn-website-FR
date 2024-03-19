@@ -162,7 +162,7 @@ const validateCheckbox = (checkbox) => {
  */
 const validateCity = () => {
   const checkedRadio = document.querySelector('input[name="location"]:checked');
-  const formData = document.querySelectorAll(".formData"); // Sélectionnez tous les éléments .formData
+  const formData = document.querySelectorAll(".formData");
 
   if (!checkedRadio) {
     formData.forEach((form) => {
@@ -188,7 +188,7 @@ const validate = () => {
   const isEmailValid = validateInput(email);
   const isBirthdateValid = validateInput(birthdate);
   const isCheckboxValid = validateCheckbox(checkbox1);
-  const isLocationValid = validateCity(errorRadio);
+  const isLocationValid = validateCity();
   const isCheckQuantity = checkQuantity(quantity);
 
   return (

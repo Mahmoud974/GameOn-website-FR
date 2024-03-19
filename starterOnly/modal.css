@@ -77,9 +77,11 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+    height: 25rem;}
   .topnav.responsive .icon {
-    
+    margin-top: 10px;
     z-index: 30;
     right: 0;
     top: 0;
@@ -87,7 +89,7 @@ img {
   .topnav.responsive a {
     position: relative;
     top: 40px;
-    
+   
     float: none;
     display: block;
     text-align: left;
@@ -109,12 +111,7 @@ img {
   }
 }
 
-/* Styles pour l'icône du burger menu */
-.topnav a.icon {
-  float: right;
-  display: block;
-  padding: 14px 16px;
-}
+
 
 /* Lorsque l'icône du burger menu est cliquée, afficher le menu */
 .topnav.responsive {
@@ -661,6 +658,7 @@ footer {
   }
   .main-navbar{
       display: flex;
+      font-size: 10px;
    margin-top: 12px;
    flex-direction: column;
 
@@ -732,4 +730,5 @@ footer {
     opacity: 1;
   }
 }
+
 
