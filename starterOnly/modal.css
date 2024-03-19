@@ -326,6 +326,7 @@ input {
   height: 48px;
 }
 .formData[data-error]::after {
+  
   content: attr(data-error);
   font-size: 0.4em;
   color: #e54858;
@@ -339,9 +340,11 @@ input {
 }
 .formData[data-error-visible="true"]::after {
   opacity: 1;
+  text-align: left;
 }
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
+  
 }
 /* 
 input[data-error]::after {
@@ -612,12 +615,13 @@ input[data-error]::after {
   display: block;
   padding: 0;
 }
-/* TODO:A faire!!! */
+
 /* Enlever le logo lorsque le burger menu est ouvert */
 @media screen and (max-width: 425px) {
   .header-logo {
     display: block; /* Assurez-vous que le logo est initialement visible */
   }
+
 
   /* Enlever le logo lorsque le burger menu est ouvert */
   .icon:checked ~ .topnav .header-logo {
